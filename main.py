@@ -28,6 +28,13 @@ def main():
         type="messages",
         title="The BOT",
         description="Discuss with me, the BOT :D !",
+        examples=["Hello", "Am I cool?", "Are tomatoes vegetables?"],
+        cache_examples=True,
+        theme="ocean",
+        chatbot=gr.Chatbot(height=300, type="messages"),
+        textbox=gr.Textbox(
+            placeholder="Ask me a yes or no question", container=False, scale=7
+        ),
     ).launch(debug=True)
 
 
