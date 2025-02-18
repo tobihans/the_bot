@@ -22,19 +22,22 @@ def respond_slowly(message, history):
         yield f"You typed: {message[: i + 1]}"
 
 
+def give_options(message, history):
+    yield gr.ChatMessage(
+        content=f"You typed: {message}. Are you satisfied ?",
+        options=[{"value": "1", "label": "Yes"}, {"value": "0", "label": "No"}],
+    )
+
+
 def main():
     gr.ChatInterface(
-        fn=respond_slowly,
+        fn=give_options,
         type="messages",
         title="The BOT",
         description="Discuss with me, the BOT :D !",
         examples=["Hello", "Am I cool?", "Are tomatoes vegetables?"],
-        cache_examples=True,
+        cache_examples=False,
         theme="ocean",
-        chatbot=gr.Chatbot(height=300, type="messages"),
-        textbox=gr.Textbox(
-            placeholder="Ask me a yes or no question", container=False, scale=7
-        ),
     ).launch(debug=True)
 
 
