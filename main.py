@@ -1,4 +1,5 @@
 import random
+import time
 import gradio as gr
 
 
@@ -15,8 +16,19 @@ def agree_disagree(message, history):
         return "No, I do not think that."
 
 
+def respond_slowly(message, history):
+    for i in range(len(message)):
+        time.sleep(0.3)
+        yield f"You typed: {message[: i + 1]}"
+
+
 def main():
-    gr.ChatInterface(fn=agree_disagree, type="messages").launch(debug=True)
+    gr.ChatInterface(
+        fn=respond_slowly,
+        type="messages",
+        title="The BOT",
+        description="Discuss with me, the BOT :D !",
+    ).launch(debug=True)
 
 
 if __name__ == "__main__":
