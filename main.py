@@ -1,5 +1,6 @@
 import random
 import time
+from fastapi import FastAPI
 import gradio as gr
 
 
@@ -30,7 +31,8 @@ def give_options(message, history):
 
 
 def main():
-    gr.ChatInterface(
+    app = FastAPI()
+    io = gr.ChatInterface(
         fn=give_options,
         type="messages",
         title="The BOT",
@@ -38,7 +40,10 @@ def main():
         examples=["Hello", "Am I cool?", "Are tomatoes vegetables?"],
         cache_examples=False,
         theme="ocean",
-    ).launch(debug=True)
+    )
+    # io.launch(debug=True)
+    app = gr.mount_gradio_app(app, io, path="/gradio")
+    return app
 
 
 if __name__ == "__main__":
